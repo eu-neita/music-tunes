@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Loading from './Loading';
 import { getUser } from '../services/userAPI';
-import Header from '../components/Header';
 
-class Search extends Component {
+class Header extends Component {
   state = {
-    loading: true,
+    dataUser: {},
   };
 
   componentDidMount() {
@@ -16,20 +14,19 @@ class Search extends Component {
     const user = await getUser();
     if (user !== '') {
       this.setState({
-        loading: false,
+        dataUser: user,
       });
     }
   };
 
   render() {
-    const { loading } = this.state;
+    const { dataUser } = this.state;
     return (
-      <div data-testid="page-search">
-        {loading && <Loading /> }
-        <Header />
-      </div>
+      <header data-testid="header-component">
+        <p data-testid="header-user-name">{ dataUser.name }</p>
+      </header>
     );
   }
 }
 
-export default Search;
+export default Header;

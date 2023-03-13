@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 class Profile extends Component {
   // constructor(props) {
@@ -7,7 +8,9 @@ class Profile extends Component {
   // state = {  }
   render() {
     return (
-      <div data-testid="page-profile" />
+      <div data-testid="page-profile">
+        <Header />
+      </div>
     );
   }
 }

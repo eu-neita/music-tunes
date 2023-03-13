@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 class Album extends Component {
   // constructor(props) {
@@ -7,7 +8,9 @@ class Album extends Component {
   // state = {  }
   render() {
     return (
-      <div data-testid="page-album" />
+      <div data-testid="page-album">
+        <Header />
+      </div>
     );
   }
 }

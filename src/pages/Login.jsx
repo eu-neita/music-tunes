@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
-// import PropTypes from 'prop-types';
 
 class Login extends Component {
   state = {
@@ -25,7 +24,6 @@ class Login extends Component {
 
   handleInputChange = ({ target }) => {
     const { name, type, checked, value } = target;
-    // const { value } = this.name
     const input = type === 'checkbox' ? checked : value;
     this.setState({
       [name]: input,
@@ -42,9 +40,6 @@ class Login extends Component {
         buttonClick: true,
       });
     }
-    // this.setState({
-    //   buttonClick: true,
-    // });
   };
 
   render() {
@@ -73,11 +68,5 @@ class Login extends Component {
     );
   }
 }
-
-// Login.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   onInputChange: PropTypes.string.isRequired,
-//   buttonDisable: PropTypes.bool,
-// }.isRequired;
 
 export default Login;

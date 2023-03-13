@@ -3,21 +3,22 @@ import Loading from './Loading';
 import { getUser } from '../services/userAPI';
 
 class Search extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
   state = {
     loading: true,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadingVerify();
+  }
+
+  loadingVerify = async () => {
     const user = await getUser();
     if (user !== '') {
       this.setState({
         loading: false,
       });
     }
-  }
+  };
 
   render() {
     const { loading } = this.state;

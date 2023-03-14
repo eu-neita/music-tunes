@@ -1,9 +1,8 @@
-// import { wait } from '@testing-library/user-event/dist/utils';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
+import MusicCard from '../components/MusicCard';
 
 class Album extends Component {
   state = {
@@ -27,7 +26,7 @@ class Album extends Component {
   render() {
     const { albums, infos } = this.state;
     const tracks = albums.filter((track) => track.wrapperType
-    === 'track').map((track, i) => (
+    === 'track').map((track) => (
       <MusicCard
         key={ track.trackId }
         trackName={ track.trackName }
@@ -39,7 +38,9 @@ class Album extends Component {
         <Header />
         <img src={ `${infos.artworkUrl60}` } alt={ `${infos.nameAlbum}` } />
         <p data-testid="album-name">{infos.collectionName}</p>
+        {console.log(infos.collectionName)}
         <p data-testid="artist-name">{infos.artistName}</p>
+        {console.log(infos.artistName)}
         {tracks}
       </div>
     );

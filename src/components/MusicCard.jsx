@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../pages/Loading';
 
 class MusicCard extends Component {
@@ -9,6 +9,10 @@ class MusicCard extends Component {
     value: false,
   };
 
+  componentDidMount() {
+    this.favSongs();
+  }
+
   songAdd = async (target) => {
     const { value } = this.state;
     this.setState({
@@ -16,16 +20,19 @@ class MusicCard extends Component {
       value: true,
     });
     const response = await addSong(target);
-    if (response !== '') {
-      this.setState({
-        okValidate: false,
-      });
-    }
-    if (value) {
-      this.setState({
-        value: false,
-      });
-    }
+    if (response !== '') this.setState({ okValidate: false });
+    if (value) this.setState({ value: false });
+  };
+
+  favSongs = async () => {
+    const { trackId, arrResponse } = this.props;
+    arrResponse.forEach((res) => {
+      if (res.trackId === trackId) {
+        this.setState({
+          value: true,
+        });
+      }
+    });
   };
 
   render() {
@@ -33,7 +40,6 @@ class MusicCard extends Component {
     const { okValidate, value } = this.state;
     const bool = true;
     return (
-
       <div>
         {okValidate && bool
           ? <Loading /> : (
@@ -70,6 +76,7 @@ MusicCard.propTypes = {
   previewUrl: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
   track: PropTypes.shape().isRequired,
+  arrResponse: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default MusicCard;

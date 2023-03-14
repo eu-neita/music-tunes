@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from './Loading';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
@@ -12,10 +13,13 @@ class Album extends Component {
       albums: [],
       infos: [],
       print: false,
+      value: false,
+      response: [],
     };
   }
 
   componentDidMount() {
+    this.favSongsVerify();
     this.grabAlbum();
   }
 
@@ -29,8 +33,18 @@ class Album extends Component {
     });
   };
 
+  favSongsVerify = async () => {
+    const response = await getFavoriteSongs();
+    if (response !== []) {
+      this.setState({
+        value: true,
+        response,
+      });
+    }
+  };
+
   render() {
-    const { albums, infos, print } = this.state;
+    const { albums, infos, print, value, response } = this.state;
     const musicCard = albums.filter((track) => track.trackId)
       .map((trackss) => (
         <MusicCard
@@ -39,15 +53,20 @@ class Album extends Component {
           previewUrl={ trackss.previewUrl }
           trackId={ trackss.trackId }
           track={ trackss }
+          arrResponse={ response }
         />
       ));
     return (
       <div data-testid="page-album">
         <Header />
-        <img src={ infos.artworkUrl60 } alt={ infos.nameAlbum } />
-        {print ? <p data-testid="album-name">{infos.collectionName}</p> : []}
-        {print ? <p data-testid="artist-name">{infos.artistName}</p> : []}
-        {print ? musicCard : <Loading />}
+        {value ? (
+          <div>
+            <img src={ infos.artworkUrl60 } alt={ infos.nameAlbum } />
+            {print ? <p data-testid="album-name">{infos.collectionName}</p> : []}
+            {print ? <p data-testid="artist-name">{infos.artistName}</p> : []}
+            {print ? musicCard : <Loading />}
+          </div>
+        ) : <Loading />}
       </div>
     );
   }

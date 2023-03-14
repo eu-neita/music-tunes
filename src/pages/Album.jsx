@@ -25,22 +25,20 @@ class Album extends Component {
 
   render() {
     const { albums, infos } = this.state;
-    const tracks = albums.filter((track) => track.wrapperType
-    === 'track').map((track) => (
-      <MusicCard
-        key={ track.trackId }
-        trackName={ track.trackName }
-        previewUrl={ track.previewUrl }
-      />
-    ));
+    const tracks = albums.filter((track) => track.trackId)
+      .map((trackss) => (
+        <MusicCard
+          key={ trackss.trackId }
+          trackName={ trackss.trackName }
+          previewUrl={ trackss.previewUrl }
+        />
+      ));
     return (
       <div data-testid="page-album">
         <Header />
-        <img src={ `${infos.artworkUrl60}` } alt={ `${infos.nameAlbum}` } />
-        <p data-testid="album-name">{infos.collectionName}</p>
-        {console.log(infos.collectionName)}
+        <img src={ infos.artworkUrl60 } alt={ infos.nameAlbum } />
         <p data-testid="artist-name">{infos.artistName}</p>
-        {console.log(infos.artistName)}
+        <p data-testid="album-name">{infos.collectionName}</p>
         {tracks}
       </div>
     );
@@ -50,8 +48,8 @@ class Album extends Component {
 Album.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
+      id: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 

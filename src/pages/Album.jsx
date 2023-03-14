@@ -22,7 +22,6 @@ class Album extends Component {
       albums: response,
       infos: response[0],
     });
-    console.log(response[0]);
   };
 
   render() {

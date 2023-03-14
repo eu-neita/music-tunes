@@ -18,12 +18,6 @@ class Search extends Component {
 
   componentDidMount() {
     this.loadingVerify();
-    // const { albums } = this.state;
-    // if (albums !== []) {
-    //   this.setState({
-    //     showAlbums: true,
-    //   });
-    // }
   }
 
   loadingVerify = async () => {
@@ -124,13 +118,6 @@ class Search extends Component {
                     {artist}
                   </div>)}
               </div>))}
-
-        {/* {!loadingArtist && showAlbums ? <Loading />
-          : (
-            <div>
-              <p>Resultado de álbuns de:</p>
-              {artist}
-            </div>)} */}
       </div>
     );
   }
